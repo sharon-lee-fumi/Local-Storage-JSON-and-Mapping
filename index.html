@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<!-- Sharon Lee -->
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Assignment 3 - Sharon Lee</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+	<link rel="stylesheet" href="_css/jquery.mobile.css" />
+	<link href="_css/port.css" rel="stylesheet" media="screen and (orientation: portrait)" />
+	<link href="_css/land.css" rel="stylesheet" media="screen and (orientation: landscape)" />	
+	
+	<link rel="stylesheet" href="_css/mystyles.css" />
+	<link rel="stylesheet" href="_css/lee.css" />
+
+	<script src="_js/jquery.js"></script>
+	<script src="_js/jquery.mobile.js"></script>
+	<script src="_js/myscript.js"></script>
+	
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3&sensor=false&language=en"></script>
+	
+</head>
+<body>
+<!-- Home page -->
+<div data-role="page" id="home" data-theme="a">
+	<!-- header -->
+	<header data-role="header" id="homeheader">
+	</header>
+
+	<!-- content area  -->
+	<section class="ui-content" role="main">
+			<div class="ui-grid-a">
+				<section class="ui-block-a">
+					<h3 id="location"></h3>
+					<a href="#windPanel" class="ui-btn ui-icon-uranus ui-btn-icon-left">Wind</a>
+					<a href="#atmospherePanel" class="ui-btn ui-icon-jupiter ui-btn-icon-left">Atmosphere</a>					
+					<a href="#astronomyPanel" class="ui-btn ui-icon-earth ui-btn-icon-left">Astronmony</a>
+					
+					<nav data-role="navbar">
+						<ul>
+							<li><a href="#forecast" class="ui-btn ui-icon-eye ui-btn-icon-top">Forecast</a></li>
+							<li><a href="#information" class="ui-btn ui-icon-user ui-btn-icon-top">User Information</a></li>				
+						</ul>
+					</nav>
+				</section>
+				
+				<section class="ui-block-b">
+					<a href="#map_canvas" class="ui-btn" id="map">Map</a>
+					<div id="map_canvas" style="height:300px; width:300px; display: block; margin: 0 auto;"></div>		
+				</section>
+			</div>
+		</section>
+
+	<!-- footer -->
+	<footer data-role="footer">
+		<nav data-role="navbar">
+			<ul>
+				<li><a href="#popup" class="ui-btn ui-icon-info ui-btn-icon-top" 
+							data-rel="dialog" data-transition="pop">About</a></li>
+				<li><a href="https://www.sheridancollege.ca/" 
+						class="ui-btn ui-icon-sheridan ui-btn-icon-top">Sheridan</a></li>
+				<li><a href="http://canada.ca" class="ui-btn ui-icon-canada ui-btn-icon-top">Canada</a></li>					
+			</ul>
+      </nav>
+	</footer>
+	
+	<!-- Panels -->	
+		<!--  Wind -->
+		<div id="windPanel" data-role="panel">
+			<h2 style="text-align:center;">Wind</h2>
+			<div style="text-align:center;" id="wind">
+			</div>
+		</div>
+		<!--  Atmosphere -->
+		<div id="atmospherePanel" data-role="panel">
+			<h2 style="text-align:center;">Atmosphere</h2>
+			<div style="text-align:center;" id="atmosphere">
+			</div>
+		</div>
+		<!--  Astronmony -->
+		<div id="astronomyPanel" data-role="panel">
+			<h2 style="text-align:center;">Astronmony</h2>
+			<div style="text-align:center;" id="astronomy">
+			</div>
+		</div>
+</div>
+<!-- end of home page -->
+
+<!-- Start of #popup -->
+<div data-role="page" id="popup">
+	<!-- /header -->
+	<header data-role="header" data-theme="a">
+		<h1>About Me</h1>
+	</header>
+	<div class="ui-content" role="main" data-theme="a">	
+		<section class="ui-grid-a" role="main">
+			<div class="ui-block-a" id="info">
+			</div>
+			<div class="ui-block-b" style="text-align:center;" id="pic">
+			</div>
+		</section>		
+	</div>
+</div>
+<!-- end of popup page -->
+
+<!-- Start of #forecast -->
+<div data-role="page" id="forecast">
+	<!-- /header -->
+	<header data-role="header" data-theme="a">
+		<a href="#home" class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all"></a>
+		<h1 class="ui-title">Forecast</h1>
+	</header>
+	<!-- listing forecasts -->
+	<section class="ui-content" role="main">
+		<ul id="fcmenu" data-role="listview" data-inset="true" data-filter="true">
+		</ul>
+	</section>
+	<div data-role="panel" data-position="right" id="indforecast">
+		<div class="ui-content" style="text-align:center;" role="main" id="forecastinfo">	
+	</div>
+</div>
+	
+</div>
+<!-- end of forecast page -->
+
+<!-- Start of #information -->
+<div data-role="page" id="information">
+	<!-- /header -->
+	<header data-role="header" data-theme="a">
+		<a href="#home" class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all"></a>
+		<h1 class="ui-title">User Information</h1>
+	</header>
+	<div class="ui-content" role="main" data-theme="a">	
+		<form method="post">
+			<em>Email address:</em>
+			<input type="email" name="email" id="email" placeholder="Please enter valid Email address">
+			<fieldset data-role="controlgroup"data-type="horizontal">
+				<legend>Type of question / comment:</legend>
+				<input type="radio" name="qc" id="technical" value="technical" checked="checked">
+				<label for="technical">Technical</label>
+				<input type="radio" name="qc" id="general" value="general">
+				<label for="general">General</label>
+				<input type="radio" name="qc" id="comment" value="comment">
+				<label for="comment">Comment</label>
+			</fieldset>
+			<em>Enter a question / comment:</em>
+			​<textarea id="text" name="text" rows="5" cols="10"></textarea>
+			<section class="ui-grid-a" role="main">
+				<div class="ui-block-a">
+					<a href="#popups" style="text-decoration:none" data-rel="dialog" data-transition="pop">
+					<button id="submit" class="ui-btn ui-icon-action ui-btn-icon-right">Submit</button></a>
+				</div>
+				<div class="ui-block-b">
+					<a href="#popupr" class="ui-btn ui-icon-action ui-btn-icon-right" 
+								data-rel="dialog" data-transition="pop" id="retrieve">
+								Retrieve the Last Information</a>
+				</div>
+		</form>
+		</section>	
+		
+	</div>
+</div>
+<!-- end of information page -->
+
+<!-- Start of #popups -->
+<div data-role="page" id="popups">
+	<!-- /header -->
+	<header data-role="header" data-theme="a">
+		<h1>Submitted Information</h1>
+	</header>
+	<div class="ui-content" role="main" data-theme="a" id="sinfo">		
+	</div>
+</div>
+<!-- end of popup page -->
+
+<!-- Start of #popupr -->
+<div data-role="page" id="popupr">
+	<!-- /header -->
+	<header data-role="header" data-theme="a">
+		<h1>Retrieve</h1>
+	</header>
+	<div class="ui-content" role="main" data-theme="a" id="rinfo">		
+	</div>
+</div>
+<!-- end of popupr page -->
+
+
+</body>
+</html>
